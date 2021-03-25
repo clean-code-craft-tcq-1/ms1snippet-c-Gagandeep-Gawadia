@@ -31,7 +31,7 @@ TEST_CASE("reports error when soc jumps abruptly") {
 		numofelements--;
 	}
 
-  REQUIRE(SensorValidation(struct validationdataset * Sensordataset,communicationfailuredetails) == 0);
+  REQUIRE(SensorValidation(Sensordataset,communicationfailuredetails) == 0);
 }
 
 //TEST_CASE("reports error when current jumps abruptly") {
