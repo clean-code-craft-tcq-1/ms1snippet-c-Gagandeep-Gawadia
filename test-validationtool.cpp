@@ -4,14 +4,16 @@
 #include "sensor-validate.h"
 
 TEST_CASE("reports error when soc jumps abruptly") {
-  struct validationdataset * Sensordataset;
+  struct validationdataset intialvalueset = {0}; 
+  struct validationdataset *Sensordataset = &intialvalueset;	
+
   enum typeofcommunicationerror communicationfailuredetails;
   
 	double socReadings[] = { 0.0, 0.01, 0.5, 0.51 };
 	Sensordataset->numOfdataset_soc = sizeof(socReadings) / sizeof(socReadings[0]);
 	int i = 0;
 	int numofelements = Sensordataset->numOfdataset_soc;
-	while (!numofelements)
+	while (numofelements)
 	{
 		Sensordataset->values_soc[i] = socReadings[i];
 		i++;
@@ -24,7 +26,7 @@ TEST_CASE("reports error when soc jumps abruptly") {
 
 	i = 0;
 	numofelements = Sensordataset->numOfdataset_current;
-	while (!numofelements)
+	while (numofelements)
 	{
 		Sensordataset->values_current[i] = currentReadings[i];
 		i++;
