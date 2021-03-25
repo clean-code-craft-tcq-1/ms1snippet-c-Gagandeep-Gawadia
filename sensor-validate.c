@@ -2,7 +2,7 @@
 
 #define soc_delta 0.05f
 #define currentreading_delta 0.1f
-#define NULL (void *) 0
+//#define NULL (void *) 0
 
 int suddenJumpInDataIsDetected(double value, double nextValue, double maxDelta) {
   if(nextValue - value > maxDelta) {
