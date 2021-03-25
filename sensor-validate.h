@@ -1,6 +1,24 @@
+//#include <stdbool.h>
+#define maxnumofdataset 10
 
-int _give_me_a_good_name(double value, double nextValue, double maxDelta);
+enum typeofcommunicationerror
+{
+	nocommunicationfailure,
+	communicationfailedwithsocsensor,
+	communicationfailedwithcurrentsensor,
+	communicationfailureothers
+};
 
-int validateSOCreadings(double* values, int numOfValues);
+struct validationdataset
+{
+	double  values_soc[maxnumofdataset];
+	int     numOfdataset_soc;
+	bool    status_socreading;
+	double  values_current[maxnumofdataset];
+	int     numOfdataset_current;
+	bool    status_currentreading;
+};
 
-int validateCurrentreadings(double* values, int numOfValues);
+int parametersAreValidIfSet(double* values, int numOfValues, float deltadifference);
+int SensorValidation(struct validationdataset * Sensordataset, enum typeofcommunicationerror communicationfailuredetails);
+int suddenJumpInDataIsDetected(double value, double nextValue, double maxDelta);
