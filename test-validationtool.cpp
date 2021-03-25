@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
 
 #include "test/catch.hpp"
-#include "sensor-validate.c"
+#include "sensor-validate.h"
 
 TEST_CASE("reports error when soc jumps abruptly") {
   struct validationdataset intialvalueset = {0}; 
