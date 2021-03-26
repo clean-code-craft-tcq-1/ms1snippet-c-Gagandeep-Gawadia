@@ -7,4 +7,4 @@ int NospikeIsDetected(double value, double nextValue, double maxDelta);
 datamessage evaluateBreachState(typeofcommunicationerror *communicationfailuredetails);
 void printToConsole(datamessage breach, const char * sensorstate);
 int evaluationofspikedetected(double* values, int numOfValues, float deltadifference);
-const char* sensorStateFlag2StringConversion(sensorNotNoisyIfTrue);
+const char* sensorStateFlag2StringConversion(int sensorNotNoisyIfTrue);
