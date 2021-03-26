@@ -4,7 +4,7 @@
 #define currentreading_delta 0.1f
 //#define NULL (void *) 0
 #include <cstddef>
-
+#include <cstdio>
 
 int NospikeIsDetected(double value, double nextValue, double maxDelta) {
   if(nextValue - value > maxDelta) {
@@ -41,7 +41,7 @@ int parametersAreValidIfSet(double* values, int numOfValues, float deltadifferen
 	
 }
 
-int SensorValidation(struct validationdataset * Sensordataset, typeofcommunicationerror *communicationfailuredetails)
+int SensorValidation( validationdataset * Sensordataset, typeofcommunicationerror *communicationfailuredetails)
 {  
 	if (Sensordataset != NULL)
 	{
@@ -86,7 +86,7 @@ datamessage evaluateBreachState(typeofcommunicationerror *communicationfailurede
 }
 
 
-void printToConsole(datamessage breach, char * sensorstate)
+void printToConsole(datamessage breach, const char * sensorstate)
 {
 	switch (breach)
 	{
