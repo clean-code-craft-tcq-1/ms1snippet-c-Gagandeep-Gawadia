@@ -4,7 +4,7 @@
  ***
  ***    \brief       file contains test cases which belongs to file 
                      sensor-validate.c 
-/*****************************************************************************/
+*******************************************************************************/
 
 /*-------------------------------  Include files  -------------------------------------------*/
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
