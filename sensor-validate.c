@@ -26,7 +26,7 @@ int evaluationofspikedetected(double* values, int numOfValues, float deltadiffer
 
 int parametersAreValidIfSet(double* values, int numOfValues, float deltadifference, parametername parname, typeofcommunicationerror *communicationfailuredetails) {
 	
-	if ((numOfValues)||(values != NULL)) //Not an empty array or NULL pointer  
+	if ((values != NULL)&& (numOfValues)) // Neither a NULL pointer nor an empty array set is passed
 	{ 
 		int spikedetectedifclear = evaluationofspikedetected(values, numOfValues, deltadifference);
 		return spikedetectedifclear;
