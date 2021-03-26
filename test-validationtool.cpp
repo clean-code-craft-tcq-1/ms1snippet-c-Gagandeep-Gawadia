@@ -63,3 +63,4 @@ TEST_CASE("reports no error as no sudden soc/current jump") {
   	REQUIRE((SensorValidation( socReadings_4, 3 , currentReadings_4, 3 , communicationfailuredetails_4)) == 1);
 	
 }
+/*================== EoF (test-validationtool.cpp) ===============*/
