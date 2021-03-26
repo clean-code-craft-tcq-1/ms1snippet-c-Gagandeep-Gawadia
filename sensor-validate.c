@@ -41,36 +41,29 @@ int parametersAreValidIfSet(double* values, int numOfValues, float deltadifferen
 	
 }
 
-int SensorValidation( validationdataset * Sensordataset, typeofcommunicationerror *communicationfailuredetails)
+int SensorValidation(double * values_soc, int numOfdataset_soc , double * values_current, int numOfdataset_current, typeofcommunicationerror *communicationfailuredetails)
 {  
-	if (Sensordataset != NULL)
-	{
 		int currentNoSpikeDetectedIfTrue = 1;
 		int socNoSpikeDetectedIfTrue = 1;
 		int sensorNotNoisyIfTrue = 1;
 
 		communicationfailuredetails[soc] = nocommunicationfailure;
 		communicationfailuredetails[current] = nocommunicationfailure;
-		socNoSpikeDetectedIfTrue = parametersAreValidIfSet(Sensordataset->values_soc, Sensordataset->numOfdataset_soc, soc_delta, soc, communicationfailuredetails);
-		currentNoSpikeDetectedIfTrue = parametersAreValidIfSet(Sensordataset->values_current, Sensordataset->numOfdataset_current, currentreading_delta, current, communicationfailuredetails);
+		socNoSpikeDetectedIfTrue = parametersAreValidIfSet(values_soc, numOfdataset_soc, soc_delta, soc, communicationfailuredetails);
+		currentNoSpikeDetectedIfTrue = parametersAreValidIfSet(values_current, numOfdataset_current, currentreading_delta, current, communicationfailuredetails);
 		
 		//Sensor is detected as not noisy if neither soc or current has spike detected 
 		sensorNotNoisyIfTrue = (socNoSpikeDetectedIfTrue & currentNoSpikeDetectedIfTrue);
+
+		char* sensorstate = sensorStateFlagConversion(sensorNotNoisyIfTrue);
+		datamessage breach = evaluateBreachState(communicationfailuredetails);
+		printToConsole(breach, sensorstate);
+
+
 		return  sensorNotNoisyIfTrue;
-	}
-	else
-	{ 
-		communicationfailuredetails[soc] = communicationfailed;
-		communicationfailuredetails[current] = communicationfailed;
-		return 0;
-	}
-}
-
-
-void readData( validationdataset *Sensordataset) {
 	
-	//write data to the structure after sampling
 }
+
 
 datamessage evaluateBreachState(typeofcommunicationerror *communicationfailuredetails)
 {
@@ -110,18 +103,4 @@ char* sensorStateFlagConversion(int sensorNotNoisyIfTrue) {
 	}
 
 };
-void runSensorAnalysis() {
 
-	validationdataset intializedataset = { 0 };
-    //Initialization of variables
-	validationdataset * Sensordataset = &intializedataset;
-    typeofcommunicationerror communicationfailuredetails[2] = { nocommunicationfailure,nocommunicationfailure };
-	datamessage breach;
-
-	readData(Sensordataset);
-    int sensorNotNoisyIfTrue = SensorValidation(Sensordataset, communicationfailuredetails);
-	char* sensorstate = sensorStateFlagConversion(sensorNotNoisyIfTrue);
-	breach = evaluateBreachState(communicationfailuredetails);
-	printToConsole(breach , sensorstate);
-
-}
