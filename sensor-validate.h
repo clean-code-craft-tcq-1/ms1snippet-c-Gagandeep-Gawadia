@@ -16,3 +16,5 @@ datamessage evaluateBreachState(typeofcommunicationerror *communicationfailurede
 void printToConsole(datamessage breach, const char * sensorstate);
 int evaluationofspikedetected(double* values, int numOfValues, float deltadifference);
 const char* sensorStateFlag2StringConversion(int sensorNotNoisyIfTrue);
+
+/*================== EoF (sensor-validate.h) ===============*/
