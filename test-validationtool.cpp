@@ -36,5 +36,16 @@ TEST_CASE("reports error when empty array is passed ") {
   	REQUIRE((SensorValidation( socReadings_2 , 0, currentReadings_2 ,0, communicationfailuredetails_2)) == 0);
 	
 }
+TEST_CASE("reports error when NULL pointer is passed ") {
+        
+
+	 typeofcommunicationerror communicationfailuredetails_2[2] = { nocommunicationfailure,nocommunicationfailure };
+
+	 double socReadings_2[] =     { 0.0, 0.01, 0.5, 0.51 };
+	 double currentReadings_2[] = { 0.0, 0.02, 0.03, 0.02 };
+
+  	REQUIRE((SensorValidation( (double*)NULL , 0, (double*)NULL ,0, communicationfailuredetails_2)) == 0);
+	
+}
 
 
