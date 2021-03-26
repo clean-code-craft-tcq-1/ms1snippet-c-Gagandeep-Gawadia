@@ -1,8 +1,19 @@
+/******************************************************************************/
+/***    \file        test-validationtool.cpp
+ ***    \author      Gagandeep Gawadia
+ ***
+ ***    \brief       file contains test cases which belongs to file 
+                     sensor-validate.c 
+/*****************************************************************************/
+
+/*-------------------------------  Include files  -------------------------------------------*/
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
 
 #include "test/catch.hpp"
 #include "sensor-validate.h"
 
+
+/*---------------------------------- Test cases  ------------------------------------------------*/
 TEST_CASE("reports error when soc jumps abruptly") {
         
 
