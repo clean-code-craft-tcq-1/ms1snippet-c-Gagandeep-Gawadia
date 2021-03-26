@@ -1,14 +1,25 @@
 #define maxnumofdataset 10
 
-enum typeofcommunicationerror
+
+typedef enum 
+{         soc,
+          current,
+}parametername;
+
+typedef enum 
 {
 	nocommunicationfailure,
-	communicationfailedwithsocsensor,
-	communicationfailedwithcurrentsensor,
-	communicationfailureothers
-};
+	communicationfailed,
 
-struct validationdataset
+}typeofcommunicationerror;
+
+typedef enum 
+{ 
+	cannotvalidatesensor,
+	canvalidatesensor,
+}datamessage;
+
+typedef struct validationdataset
 {
 	double  values_soc[maxnumofdataset];
 	int     numOfdataset_soc;
@@ -16,4 +27,5 @@ struct validationdataset
 	double  values_current[maxnumofdataset];
 	int     numOfdataset_current;
 	bool    status_currentreading;
-};
+	
+}validationdataset;
