@@ -12,20 +12,26 @@ int NospikeIsDetected(double value, double nextValue, double maxDelta) {
   }
   return 1;
 }
-
+int evaluationofspikedetected(double* values, int numOfValues, float deltadifference )
+{
+	int lastButOneIndex = numOfValues - 1;
+	for (int i = 0; i < lastButOneIndex; i++) {
+		if (!NospikeIsDetected(values[i], values[i + 1], deltadifference)) {
+			return 0;
+		}
+	}
+	
+	return 1;
+}
 
 int parametersAreValidIfSet(double* values, int numOfValues, float deltadifference, parametername parname, typeofcommunicationerror *communicationfailuredetails) {
 	
 	if (numOfValues) //Not an empty array  
-	{
-		int lastButOneIndex = numOfValues - 1;
-		for (int i = 0; i < lastButOneIndex; i++) {
-			if (!NospikeIsDetected(values[i], values[i + 1], deltadifference)) {
-				return 0;
-			}
-		}
+	{ 
+		int spikedetectedifclear = evaluationofspikedetected(values, numOfValues, deltadifference);
+		return spikedetectedifclear;
 		//communicationfailuredetails[parname] = nocommunicationfailure; 
-		return 1;
+		
 	}
 	else //Incase of empty array or NULL
 	{
@@ -79,33 +85,43 @@ datamessage evaluateBreachState(typeofcommunicationerror *communicationfailurede
 	}
 }
 
-void printToConsole(datamessage breach, int sensornoisyisfalse)
+
+void printToConsole(datamessage breach, char * sensorstate)
 {
 	switch (breach)
 	{
 	case cannotvalidatesensor:
-		printf("error in communication");
+		printf("Error in communication");
 		break;
 	case canvalidatesensor:
-		if (!sensornoisyisfalse)
-		{
-			printf("Sensor is Noisy");
-		}
+		printf(" %s", sensorstate);
 		break;
 	}
 }
 
+char* sensorStateFlagConversion(int sensorNotNoisyIfTrue) {
+	if (sensorNotNoisyIfTrue)
+	{
+		return "Sensor is not noisy";
+	}
+	else
+	{
+		return "Sensor is noisy";
+	}
+
+};
 void runSensorAnalysis() {
 
 	validationdataset intializedataset = { 0 };
-        //Initialization of variables
+    //Initialization of variables
 	validationdataset * Sensordataset = &intializedataset;
-        typeofcommunicationerror communicationfailuredetails[2] = { nocommunicationfailure,nocommunicationfailure };
+    typeofcommunicationerror communicationfailuredetails[2] = { nocommunicationfailure,nocommunicationfailure };
 	datamessage breach;
 
 	readData(Sensordataset);
-        int sensorNotNoisyIfTrue = SensorValidation(Sensordataset, communicationfailuredetails);
+    int sensorNotNoisyIfTrue = SensorValidation(Sensordataset, communicationfailuredetails);
+	char* sensorstate = sensorStateFlagConversion(sensorNotNoisyIfTrue);
 	breach = evaluateBreachState(communicationfailuredetails);
-	printToConsole(breach , sensorNotNoisyIfTrue);
+	printToConsole(breach , sensorstate);
 
 }
