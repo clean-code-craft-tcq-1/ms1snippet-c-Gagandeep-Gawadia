@@ -92,7 +92,7 @@ void printToConsole(datamessage breach, const char * sensorStateString)
 	}
 }
 
-const char* sensorStateFlagConversion(int sensorNotNoisyIfTrue) {
+const char* sensorStateFlag2StringConversion(int sensorNotNoisyIfTrue) {
 	if (sensorNotNoisyIfTrue)
 	{
 		return "Sensor is not noisy";
