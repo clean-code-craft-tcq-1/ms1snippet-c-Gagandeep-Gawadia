@@ -19,10 +19,10 @@ TEST_CASE("reports error when current jumps abruptly") {
 
 	 typeofcommunicationerror communicationfailuredetails[2] = { nocommunicationfailure,nocommunicationfailure };
 
-	 double socReadings[] =  { 0.01, 0.01, 0.04, 0.02 };
-	 double currentReadings[] = { 0.0, 0.02, 0.03, 0.33 };
+	 double socReadings1[] =  { 0.01, 0.01, 0.04, 0.02 };
+	 double currentReadings1[] = { 0.0, 0.02, 0.03, 0.33 };
          
-	REQUIRE((!SensorValidation( socReadings,4, currentReadings, 4, communicationfailuredetails)) == 0);
+	REQUIRE((!SensorValidation( socReadings1 ,4, currentReadings1, 4, communicationfailuredetails)) == 0);
 	
 }
 TEST_CASE("reports error when empty array is passed ") {
@@ -30,10 +30,10 @@ TEST_CASE("reports error when empty array is passed ") {
 
 	 typeofcommunicationerror communicationfailuredetails[2] = { nocommunicationfailure,nocommunicationfailure };
 
-	 double socReadings[] =     { 0.0, 0.01, 0.5, 0.51 };
-	 double currentReadings[] = { 0.0, 0.02, 0.03, 0.02 };
+	 double socReadings2[] =     { 0.0, 0.01, 0.5, 0.51 };
+	 double currentReadings2[] = { 0.0, 0.02, 0.03, 0.02 };
 
-  	REQUIRE((!SensorValidation( socReadings, 0, currentReadings,0, communicationfailuredetails)) == 0);
+  	REQUIRE((!SensorValidation( socReadings2 , 0, currentReadings2 ,0, communicationfailuredetails)) == 0);
 	
 }
 
