@@ -38,9 +38,17 @@ TEST_CASE("reports error when empty array is passed ") {
 }
 TEST_CASE("reports error when NULL pointer is passed ") {
         
-       typeofcommunicationerror communicationfailuredetails_2[2] = { nocommunicationfailure,nocommunicationfailure };
-        REQUIRE((SensorValidation( (double*)NULL , 4, (double*)NULL , 4, communicationfailuredetails_2)) == 0);
+       typeofcommunicationerror communicationfailuredetails_3[2] = { nocommunicationfailure,nocommunicationfailure };
+        REQUIRE((SensorValidation( (double*)NULL , 4, (double*)NULL , 4, communicationfailuredetails_3)) == 0);
 	
 }
+TEST_CASE("reports no error as no sudden soc/current jump") {
+      
+	 typeofcommunicationerror communicationfailuredetails_4[2] = { nocommunicationfailure,nocommunicationfailure };
 
+	 double socReadings_4[] =     { 0.02, 0.01, 0.05 };
+	 double currentReadings_4[] = { 0.1, 0.12, 0.10 };
 
+  	REQUIRE((SensorValidation( socReadings_4, 3 , currentReadings_4, 3 , communicationfailuredetails_4)) == 1);
+	
+}
