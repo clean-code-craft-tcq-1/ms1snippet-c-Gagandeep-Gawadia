@@ -1,4 +1,11 @@
+/******************************************************************************/
+/***    \file        sensor-validate.h
+ ***    \author      Gagandeep Gawadia
+ ***
+ ***    \brief       File contains declaration for sensor-validate.c functions 
+/*****************************************************************************/
 
+/*---------------------------------- Datatypes ------------------------------*/
 typedef enum 
 {         soc,
           current,
@@ -7,7 +14,7 @@ typedef enum
 typedef enum 
 {
 	nocommunicationfailure,
-	communicationfailed,
+	communicationfailure,
 
 }typeofcommunicationerror;
 
