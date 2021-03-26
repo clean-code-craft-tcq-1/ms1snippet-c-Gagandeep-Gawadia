@@ -1,10 +1,29 @@
-#include "sensor-validate.h"
+/*****************************************************************************/
+/***    \file        sensor-validate.c
+ ***    \author      Gagandeep Gawadia
+ ***
+ ***    \brief       File contains function to evaluate sensor state 
+/*****************************************************************************/
 
-#define soc_delta 0.05f
-#define currentreading_delta 0.1f
-//#define NULL (void *) 0
+/*-------------------------------  Include files  -------------------------------------------*/
+#include "sensor-validate.h"
 #include <cstddef>
 #include <cstdio>
+
+/*-------------------------------  Macro definition ----------------------------------------- */
+#define soc_delta 0.05f
+#define currentreading_delta 0.1f
+
+/* -------------------------------- Function definition--------------------------------------- */
+
+
+/*****************************************************************************
+Function name:  NospikeIsDetected                                        *//*!
+\brief          Evaluates if spike is detected with consecutive dataset
+\return         true, if spike is not detected
+                false otherwise
+*//**************************************************************************/
+
 
 int NospikeIsDetected(double value, double nextValue, double maxDelta) {
   if(nextValue - value > maxDelta) {
@@ -12,6 +31,14 @@ int NospikeIsDetected(double value, double nextValue, double maxDelta) {
   }
   return 1;
 }
+
+/*****************************************************************************
+Function name:  evaluationofspikedetected                            *//*!
+\brief          Evaluates if spike is detected with provide input array set
+\return         false, if spike is detected
+                true otherwise
+*//**************************************************************************/
+
 int evaluationofspikedetected(double* values, int numOfValues, float deltadifference )
 {
 	int lastButOneIndex = numOfValues - 1;
@@ -23,6 +50,17 @@ int evaluationofspikedetected(double* values, int numOfValues, float deltadiffer
 	
 	return 1;
 }
+
+/*****************************************************************************
+Function name:  parametersAreValidIfSet                                  *//*!
+\brief          Evaluates if parameter provided are valid
+                if,  Null pointer or empty array is provided as input 
+		     communication error is detected 
+		otherwise  evaluationofspikedetected is called.
+\return         false, if spike is detected / communication failure
+                true otherwise
+*//**************************************************************************/
+
 
 int parametersAreValidIfSet(double* values, int numOfValues, float deltadifference, parametername parname, typeofcommunicationerror *communicationfailuredetails) {
 	
@@ -40,6 +78,18 @@ int parametersAreValidIfSet(double* values, int numOfValues, float deltadifferen
 	}
 	
 }
+
+/**************************************************************************8***
+Function name:  SensorValidation                                           *//*!
+\brief          \main sensor validation function which invloves following steps
+                 calls parametersAreValidIfSet to evaluate sensor state
+		 calls sensorStateFlag2StringConversion converts sensor state 
+		       flag to other format
+		 calls evaluateBreachState to see if data could be validated 
+		 calls printToConsole to print the evaluation result
+\return          false, if sensor is noisy / communication failure
+                 true otherwise
+*//**************************************************************************/
 
 int SensorValidation(double * values_soc, int numOfdataset_soc , double * values_current, int numOfdataset_current, typeofcommunicationerror *communicationfailuredetails)
 {  
@@ -64,7 +114,33 @@ int SensorValidation(double * values_soc, int numOfdataset_soc , double * values
 	
 }
 
+/*****************************************************************************
+Function name:  sensorStateFlag2StringConversion                          *//*!
+\brief          converts sensor state flag to printable string
 
+\return         string is Sensor is noisy/not
+*//**************************************************************************/
+
+const char* sensorStateFlag2StringConversion(int sensorNotNoisyIfTrue) {
+	if (sensorNotNoisyIfTrue)
+	{
+		return "Sensor is not noisy";
+	}
+	else
+	{
+		return "Sensor is noisy";
+	}
+
+};
+
+/*****************************************************************************
+Function name:  evaluateBreachState                                  *//*!
+\brief          Evaluates breach state depending on if
+                data could be validated or there was communication error
+		
+\return         cannotvalidatesensor, if communication failure is present
+                canvalidatesensor,   otherwise
+*//**************************************************************************/
 datamessage evaluateBreachState(typeofcommunicationerror *communicationfailuredetails)
 {
 	// If either soc or current reading had communication failure we cannot validate the sensor
@@ -79,6 +155,13 @@ datamessage evaluateBreachState(typeofcommunicationerror *communicationfailurede
 }
 
 
+/*****************************************************************************
+Function name:  printToConsole                                  *//*!
+\brief          prints error message or evaluation result 
+
+\return         
+*//**************************************************************************/
+
 void printToConsole(datamessage breach, const char * sensorStateString)
 {
 	switch (breach)
@@ -91,16 +174,4 @@ void printToConsole(datamessage breach, const char * sensorStateString)
 		break;
 	}
 }
-
-const char* sensorStateFlag2StringConversion(int sensorNotNoisyIfTrue) {
-	if (sensorNotNoisyIfTrue)
-	{
-		return "Sensor is not noisy";
-	}
-	else
-	{
-		return "Sensor is noisy";
-	}
-
-};
-
+/*================== EoF (sensor-validate.c) ===============*/
