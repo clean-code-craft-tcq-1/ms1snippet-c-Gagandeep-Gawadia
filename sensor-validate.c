@@ -73,7 +73,7 @@ int parametersAreValidIfSet(double* values, int numOfValues, float deltadifferen
 	}
 	else
 	{
-		communicationfailuredetails[parname] = communicationfailed;
+		communicationfailuredetails[parname] = communicationfailure;
 		return 0;
 	}
 	
