@@ -3,7 +3,7 @@
  ***    \author      Gagandeep Gawadia
  ***
  ***    \brief       File contains declaration for sensor-validate.c functions 
-/*****************************************************************************/
+*******************************************************************************/
 
 /*---------------------------------- Datatypes ------------------------------*/
 typedef enum 
@@ -24,3 +24,4 @@ typedef enum
 	canvalidatesensor,
 }datamessage;
 
+/*================== EoF (typedef.h) ===============*/
