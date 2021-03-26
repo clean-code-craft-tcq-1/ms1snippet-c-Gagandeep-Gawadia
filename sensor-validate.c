@@ -55,9 +55,9 @@ int SensorValidation(double * values_soc, int numOfdataset_soc , double * values
 		//Sensor is detected as not noisy if neither soc or current has spike detected 
 		sensorNotNoisyIfTrue = (socNoSpikeDetectedIfTrue & currentNoSpikeDetectedIfTrue);
 
-		const char* sensorstate = sensorStateFlagConversion(sensorNotNoisyIfTrue);
+		const char* sensorStateString = sensorStateFlag2StringConversion(sensorNotNoisyIfTrue);
 		datamessage breach = evaluateBreachState(communicationfailuredetails);
-		printToConsole(breach, sensorstate);
+		printToConsole(breach, sensorStateString);
 
 
 		return  sensorNotNoisyIfTrue;
@@ -79,7 +79,7 @@ datamessage evaluateBreachState(typeofcommunicationerror *communicationfailurede
 }
 
 
-void printToConsole(datamessage breach, const char * sensorstate)
+void printToConsole(datamessage breach, const char * sensorStateString)
 {
 	switch (breach)
 	{
@@ -87,7 +87,7 @@ void printToConsole(datamessage breach, const char * sensorstate)
 		printf("Error in communication \n");
 		break;
 	case canvalidatesensor:
-		printf(" %s \n ", sensorstate);
+		printf(" %s \n ", sensorStateString);
 		break;
 	}
 }
