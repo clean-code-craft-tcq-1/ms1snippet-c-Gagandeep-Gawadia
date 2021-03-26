@@ -18,7 +18,7 @@ TEST_CASE("reports error when soc jumps abruptly") {
 		                              sizeof(currentReadings) / sizeof(currentReadings[0]),
 		                              0,
 	                                    };
-  	REQUIRE(SensorValidation(Sensordataset,communicationfailuredetails) == 0);
+  	REQUIRE(SensorValidation(&Sensordataset,communicationfailuredetails) == 0);
   	REQUIRE(Sensordataset->status_socreading == 0);	
 }
 TEST_CASE("reports error when current jumps abruptly") {
@@ -36,7 +36,7 @@ TEST_CASE("reports error when current jumps abruptly") {
 		                              sizeof(currentReadings) / sizeof(currentReadings[0]),
 		                              0,
 	                                    };
-  	REQUIRE(SensorValidation(Sensordataset,communicationfailuredetails) == 0);
+  	REQUIRE(SensorValidation(&Sensordataset,communicationfailuredetails) == 0);
 }
 
 
