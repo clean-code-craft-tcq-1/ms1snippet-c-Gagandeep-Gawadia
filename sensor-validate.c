@@ -55,7 +55,7 @@ int SensorValidation(double * values_soc, int numOfdataset_soc , double * values
 		//Sensor is detected as not noisy if neither soc or current has spike detected 
 		sensorNotNoisyIfTrue = (socNoSpikeDetectedIfTrue & currentNoSpikeDetectedIfTrue);
 
-		char* sensorstate = sensorStateFlagConversion(sensorNotNoisyIfTrue);
+		const char* sensorstate = sensorStateFlagConversion(sensorNotNoisyIfTrue);
 		datamessage breach = evaluateBreachState(communicationfailuredetails);
 		printToConsole(breach, sensorstate);
 
