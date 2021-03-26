@@ -4,63 +4,39 @@
 #include "sensor-validate.h"
 
 TEST_CASE("reports error when soc jumps abruptly") {
-         validationdataset intialvalueset = {0};
-	 validationdataset *Sensordataset =&intialvalueset;
+        
+
 	 typeofcommunicationerror communicationfailuredetails[2] = { nocommunicationfailure,nocommunicationfailure };
-         
-	double socReadings[] = { 0.0, 0.01, 0.5, 0.51 };
-	 Sensordataset->numOfdataset_soc = sizeof(socReadings) / sizeof(socReadings[0]);
-	 int i = 0;
-	 int numofelements = Sensordataset->numOfdataset_soc;
-	 while (numofelements)
-	 {
-	 	Sensordataset->values_soc[i] = socReadings[i];
-		i++;
-		numofelements--;
-	 }
+
+	 double socReadings[] =     { 0.0, 0.01, 0.5, 0.51 };
 	 double currentReadings[] = { 0.0, 0.02, 0.03, 0.02 };
-	 Sensordataset->numOfdataset_current = sizeof(currentReadings) / sizeof(currentReadings[0]);
 
-	 i = 0;
-	 numofelements = Sensordataset->numOfdataset_current;
-	 while (numofelements)
-	 {
-		Sensordataset->values_current[i] = currentReadings[i];
-		i++;
-		numofelements--;
-	}
-
-  REQUIRE(SensorValidation(Sensordataset,communicationfailuredetails) == 0);
-  REQUIRE(Sensordataset->status_socreading == 0);	
+	 validationdataset Sensordataset = { {socReadings},
+		                              sizeof(socReadings) / sizeof(socReadings[0]),
+		                              0,
+					      {currentReadings},
+		                              sizeof(currentReadings) / sizeof(currentReadings[0]),
+		                              0,
+	                                    };
+  	REQUIRE(SensorValidation(Sensordataset,communicationfailuredetails) == 0);
+  	REQUIRE(Sensordataset->status_socreading == 0);	
 }
 TEST_CASE("reports error when current jumps abruptly") {
-         validationdataset intialvalueset = {0};
-	 validationdataset *Sensordataset =&intialvalueset;
+
+
 	 typeofcommunicationerror communicationfailuredetails[2] = { nocommunicationfailure,nocommunicationfailure };
-	
-	double socReadings[] = { 0.0, 0.01, 0.06, 0.02 };
-	Sensordataset->numOfdataset_soc = sizeof(socReadings) / sizeof(socReadings[0]);
-	int i = 0;
-	int numofelements = Sensordataset->numOfdataset_soc;
-	while (numofelements)
-	{
-		Sensordataset->values_soc[i] = socReadings[i];
-		i++;
-		numofelements--;
-	}
 
-	double currentReadings[] = { 0.0, 0.02, 0.03, 0.33 };
-	Sensordataset->numOfdataset_current = sizeof(currentReadings) / sizeof(currentReadings[0]);
+	 double socReadings[] =  { 0.01, 0.01, 0.04, 0.02 };
+	 double currentReadings[] = { 0.0, 0.02, 0.03, 0.33 };
 
-	i = 0;
-	numofelements = Sensordataset->numOfdataset_current;
-	while (numofelements)
-	{
-		Sensordataset->values_current[i] = currentReadings[i];
-		i++;
-		numofelements--;
-	}
-    REQUIRE(SensorValidation(Sensordataset,communicationfailuredetails) == 0);
+	 validationdataset Sensordataset = { {socReadings},
+		                              sizeof(socReadings) / sizeof(socReadings[0]),
+		                              0,
+					      {currentReadings},
+		                              sizeof(currentReadings) / sizeof(currentReadings[0]),
+		                              0,
+	                                    };
+  	REQUIRE(SensorValidation(Sensordataset,communicationfailuredetails) == 0);
 }
 
 
