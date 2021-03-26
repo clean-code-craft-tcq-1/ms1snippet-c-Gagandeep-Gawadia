@@ -84,10 +84,10 @@ void printToConsole(datamessage breach, const char * sensorstate)
 	switch (breach)
 	{
 	case cannotvalidatesensor:
-		printf("Error in communication");
+		printf("Error in communication \n");
 		break;
 	case canvalidatesensor:
-		printf(" %s", sensorstate);
+		printf(" %s \n ", sensorstate);
 		break;
 	}
 }
