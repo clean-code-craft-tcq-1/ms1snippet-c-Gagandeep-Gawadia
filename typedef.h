@@ -1,5 +1,3 @@
-#define maxnumofdataset 10
-
 
 typedef enum 
 {         soc,
@@ -21,10 +19,10 @@ typedef enum
 
 typedef struct validationdataset
 {
-	double  values_soc[maxnumofdataset];
+	double * values_soc;
 	int     numOfdataset_soc;
 	bool    status_socreading;
-	double  values_current[maxnumofdataset];
+	double * values_current;
 	int     numOfdataset_current;
 	bool    status_currentreading;
 	
