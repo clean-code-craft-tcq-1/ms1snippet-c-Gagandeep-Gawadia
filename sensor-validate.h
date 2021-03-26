@@ -7,4 +7,6 @@ int NospikeIsDetected(double value, double nextValue, double maxDelta);
 void runSensorAnalysis();
 void readData( validationdataset *Sensordataset);
 datamessage evaluateBreachState(typeofcommunicationerror *communicationfailuredetails);
-void printToConsole(datamessage breach, int sensornoisyisfalse);
+void printToConsole(datamessage breach, char * sensorstate);
+int evaluationofspikedetected(double* values, int numOfValues, float deltadifference);
+char* sensorStateFlagConversion(int sensorNotNoisyIfTrue);
